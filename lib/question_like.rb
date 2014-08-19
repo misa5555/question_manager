@@ -1,3 +1,5 @@
+require './questions_database'
+
 class QuestionLike
   attr_accessor :id, :user_id, :question_id
   
@@ -16,5 +18,5 @@ class QuestionLike
        id = (?)
    SQL
    
-   results.map { |question_likes| QuestionLike.new(question_likes) }
+    QuestionLike.new(results.first)
 end

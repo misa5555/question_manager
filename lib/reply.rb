@@ -1,3 +1,5 @@
+require './questions_database'
+
 class Reply
   attr_accessor :id, :question_id, :parent_reply_id, :user_id, :body
   
@@ -16,6 +18,6 @@ class Reply
         id = (?)
     SQL
     
-    results.map { |reply| Reply.new(reply) }
+    Reply.new(results.first)
   end
 end

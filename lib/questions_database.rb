@@ -8,6 +8,6 @@ class QuestionsDatabase < SQLite3::Database
     super('questions.db')
     
     self.results_as_hash = true
-    self.type_translations = true
+    self.type_translation = true
   end
 end

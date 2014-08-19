@@ -1,3 +1,5 @@
+require './questions_database'
+
 class QuestionFollower
   attr_accessor :id, :user_id, :question_id
   
@@ -16,8 +18,6 @@ class QuestionFollower
         id = (?)
     SQL
     
-    results.map do |question_followers| 
-      QuestionFollower.new(question_followers)
-    end
+    QuestionFollower.new(results.first)
   end
 end

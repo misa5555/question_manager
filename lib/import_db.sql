@@ -7,7 +7,8 @@ CREATE TABLE users(
 CREATE TABLE questions(
   id INTEGER PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
-  body VARCHAR(255)  NOT NULL
+  body VARCHAR(255)  NOT NULL,
+  user_id  INTEGER
 );
 
 CREATE TABLE question_followers(
@@ -36,9 +37,9 @@ VALUES
   ("Michael", "Jackson"), ("Bill", "Clinton"), ("Bill", "Nye");
   
 INSERT INTO
-  questions ("title", "body")
+  questions ("title", "body", "user_id")
 VALUES
-  ("Wealth", "How can I get rich?"), ("AppAcademy", "How do I finish all the work in time?");
+  ("Wealth", "How can I get rich?", 3), ("AppAcademy", "How do I finish all the work in time?", 2);
 
 INSERT INTO
   question_followers ("user_id", "question_id")
