@@ -7,13 +7,17 @@ class QuestionFollower
   end
   
   def self.find_by_id(id)
-    QuestionsDatabase.instance.execute(<<-SQL, id)
+    results = QuestionsDatabase.instance.execute(<<-SQL, id)
       SELECT 
         * 
       FROM
         question_followers
       WHERE 
         id = (?)
-      SQL
+    SQL
+    
+    results.map do |question_followers| 
+      QuestionFollower.new(question_followers)
+    end
   end
 end
