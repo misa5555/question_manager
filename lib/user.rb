@@ -1,6 +1,9 @@
-require './questions_database'
-require './question'
-class User
+require_relative 'questions_database'
+require_relative 'question'
+require_relative 'table'
+require_relative 'question_like'
+
+class User < Table
   attr_accessor :id, :fname, :lname
 
   def initialize(options = {})
@@ -9,7 +12,7 @@ class User
   end
 
   def self.find_by_id(id)
-    results = QuestionsDatabase.instance.execute(<<-SQL, id)
+    User.find_by(<<-SQL, id).first
       SELECT
         *
       FROM
@@ -17,12 +20,10 @@ class User
       WHERE
         id = (?)
     SQL
-
-    User.new(results.first)
   end
 
   def self.find_by_name(fname, lname)
-    results = QuestionsDatabase.instance.execute(<<-SQL, fname, lname)
+    User.find_by(<<-SQL, fname, lname)
       SELECT
         *
       FROM
@@ -30,33 +31,41 @@ class User
       WHERE
         fname = (?) AND lname = (?)
     SQL
-
-    User.new(results.first)
   end
 
   def authored_questions
-    results = QuestionsDatabase.instance.execute(<<-SQL, @id)
-      SELECT
-        *
-      FROM
-        questions
-      WHERE
-        user_id = (?)
-    SQL
-
-    results.map {|result| Question.new(result) }
+    Question.find_by_author_id(@id)
   end
 
   def authored_replies
+    Reply.find_by_user_id(@id)
+  end
+
+  def followed_questions
+    QuestionFollower.followed_questions_for_user_id(@id)
+  end
+
+  def liked_questions
+    QuestionLike.liked_questions_for_user_id(@id)
+  end
+
+  def average_karma
     results = QuestionsDatabase.instance.execute(<<-SQL, @id)
       SELECT
-        *
+        AVG(counts) AS average
       FROM
-        replies
-      WHERE
-        user_id = (?)
+        (SELECT
+          COUNT(question_likes.user_id) as counts
+        FROM
+          questions
+        JOIN
+          question_likes ON questions.id = question_likes.question_id
+        WHERE
+          questions.user_id = (?)
+        GROUP BY
+          questions.id
+      )
     SQL
-
-    results.map {|result| Reply.new(result) }
+    results.first["average"]
   end
 end

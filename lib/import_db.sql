@@ -1,3 +1,4 @@
+.drop tables
 CREATE TABLE users(
   id INTEGER PRIMARY KEY,
   fname VARCHAR(255) NOT NULL,
@@ -31,15 +32,15 @@ CREATE TABLE question_likes(
   question_id INTEGER
 );
 
-INSERT INTO 
-  users ("fname", "lname") 
-VALUES 
+INSERT INTO
+  users ("fname", "lname")
+VALUES
   ("Michael", "Jackson"), ("Bill", "Clinton"), ("Bill", "Nye");
-  
+
 INSERT INTO
   questions ("title", "body", "user_id")
 VALUES
-  ("Wealth", "How can I get rich?", 3), ("AppAcademy", "How do I finish all the work in time?", 2);
+  ("basic", "What is your name?",1), ("Wealth", "How can I get rich?", 1), ("AppAcademy", "How do I finish all the work in time?", 2);
 
 INSERT INTO
   question_followers ("user_id", "question_id")

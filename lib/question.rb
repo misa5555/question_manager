@@ -1,7 +1,8 @@
-require './questions_database'
-require './user'
+require_relative 'questions_database'
+require_relative 'user'
+require_relative 'table'
 
-class Question
+class Question < Table
   attr_accessor :id, :title, :body, :user_id
 
   def initialize(options = {})
@@ -35,16 +36,31 @@ class Question
     results.map { |result| Question.new(result) }
   end
 
+  def self.most_followed(n)
+    QuestionFollower.most_followed_questions(n)
+  end
+
   def author
-    results = QuestionsDatabase.instance.execute(<<-SQL, @user_id)
+    User.find_one(<<-SQL, @user_id)
       SELECT
         *
       FROM
         users
       WHERE
-        user_id = (?)
+        id = (?)
     SQL
+  end
 
-    User.new(results.first)
+  def followers
+
+  end
+
+  def likers
+  end
+
+  def num_likes
+  end
+
+  def replies
   end
 end
