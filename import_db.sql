@@ -39,3 +39,19 @@ INSERT INTO
   questions ("title", "body")
 VALUES
   ("Wealth", "How can I get rich?"), ("AppAcademy", "How do I finish all the work in time?");
+
+INSERT INTO
+  question_followers ("user_id", "question_id")
+VALUES
+  (1, 1), (2, 1), (3, 2);
+
+INSERT INTO
+  replies ("question_id", "parent_reply_id", "user_id", "body")
+VALUES
+  (1, NULL, 2, "Inheritance."), (1, 1, 1, "I had to work hard for it."),
+  (2, NULL, 3, "Stay focused.");
+
+INSERT INTO
+  question_likes ("user_id", "question_id")
+VALUES
+  (2, 1), (1, 1), (3, 1), (3, 2);
