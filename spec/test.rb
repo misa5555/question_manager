@@ -75,3 +75,31 @@ p u.liked_questions
 puts
 puts "average karma"
 p u.average_karma
+
+
+puts
+puts "create"
+new_user = User.new({ "fname" => "Kelly", "lname" => "Price" })
+new_user.save
+p new_user
+
+puts "update"
+new_user = User.new({"fname"=>"Tom", "lname"=>"Brown"})
+new_user.save
+p new_user
+
+new_user.fname = "Jim"
+new_user.save
+p new_user
+
+
+puts "Question Like save/update"
+like = QuestionLike.new({ "user_id" => 1, "question_id" => 1})
+like.save
+p like
+
+like.user_id = 2
+like.question_id = 2
+like.update
+p like
+
