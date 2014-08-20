@@ -5,6 +5,8 @@ require_relative 'question'
 class QuestionLike < Table
   attr_accessor :id, :user_id, :question_id
 
+  TABLE = "question_likes"
+
   def initialize(options = {})
     @id, @user_id, @question_id=
        options.values_at('id', 'user_id', 'question_id')

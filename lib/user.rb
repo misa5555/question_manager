@@ -6,6 +6,8 @@ require_relative 'question_like'
 class User < Table
   attr_accessor :id, :fname, :lname
 
+  TABLE = "users"
+
   def initialize(options = {})
     @id, @fname, @lname =
       options.values_at('id', 'fname', 'lname')
@@ -58,7 +60,7 @@ class User < Table
           COUNT(question_likes.user_id) as counts
         FROM
           questions
-        JOIN
+        LEFT OUTER JOIN
           question_likes ON questions.id = question_likes.question_id
         WHERE
           questions.user_id = (?)

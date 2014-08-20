@@ -5,6 +5,8 @@ require_relative 'table'
 class Question < Table
   attr_accessor :id, :title, :body, :user_id
 
+  TABLE = "questions"
+
   def initialize(options = {})
     @id, @title, @body, @user_id=
        options.values_at('id', 'title', 'body', 'user_id')

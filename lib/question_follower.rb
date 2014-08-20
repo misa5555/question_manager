@@ -4,6 +4,8 @@ require './table'
 class QuestionFollower < Table
   attr_accessor :id, :user_id, :question_id
 
+  TABLE = "question_followers"
+
   def initialize(options = {})
     @id, @user_id, @question_id =
        options.values_at('id', 'user_id', 'question_id')

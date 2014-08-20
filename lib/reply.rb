@@ -4,6 +4,8 @@ require './table'
 class Reply < Table
   attr_accessor :id, :question_id, :parent_reply_id, :user_id, :body
 
+  TABLE = "replies"
+
   def initialize(options = {})
     @id, @question_id, @parent_reply_id, @user_id, @body =
        options.values_at('id', 'question_id', 'parent_reply_id', 'user_id', 'body')
